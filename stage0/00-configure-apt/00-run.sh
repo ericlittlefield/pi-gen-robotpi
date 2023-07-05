@@ -13,7 +13,12 @@ else
 fi
 
 cat files/raspberrypi.gpg.key | gpg --dearmor > "${STAGE_WORK_DIR}/raspberrypi-archive-stable.gpg"
+cat files/uv4l.gpg.key | gpg --dearmor > "${STAGE_WORK_DIR}/uv4l.gpg"
+cat files/uv4l-2.gpg.key | gpg --dearmor > "${STAGE_WORK_DIR}/uv4l-2.gpg"
+
 install -m 644 "${STAGE_WORK_DIR}/raspberrypi-archive-stable.gpg" "${ROOTFS_DIR}/etc/apt/trusted.gpg.d/"
+install -m 644 "${STAGE_WORK_DIR}/uv4l.gpg" "${ROOTFS_DIR}/etc/apt/trusted.gpg.d/"
+install -m 644 "${STAGE_WORK_DIR}/uv4l-2.gpg" "${ROOTFS_DIR}/etc/apt/trusted.gpg.d/"
 on_chroot << EOF
 apt-get update
 apt-get dist-upgrade -y
